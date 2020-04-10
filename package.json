@@ -21,6 +21,7 @@
     "restify": "^8.5.1"
   },
   "devDependencies": {
-    "@types/restify": "^8.4.2"
+    "@types/restify": "^8.4.2",
+    "nodemon": "^2.0.3"
   }
 }
