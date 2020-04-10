@@ -16,5 +16,11 @@
   "bugs": {
     "url": "https://github.com/ivanmds/node_dynamodb_poc/issues"
   },
-  "homepage": "https://github.com/ivanmds/node_dynamodb_poc#readme"
+  "homepage": "https://github.com/ivanmds/node_dynamodb_poc#readme",
+  "dependencies": {
+    "restify": "^8.5.1"
+  },
+  "devDependencies": {
+    "@types/restify": "^8.4.2"
+  }
 }
