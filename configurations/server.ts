@@ -27,9 +27,9 @@ export class Server {
                 reject(error);
             }
         });
-    };
+    }
 
     bootstrap(): Promise<Server> {
         return this.initRoutes().then(() => this);
-    };
+    }
 }
