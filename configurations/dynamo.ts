@@ -6,26 +6,25 @@ export class Dynamo {
     initDB(): Promise<any> {
         return new Promise((resolver, reject) => {
             try {
-               
+
                 AWS.config.update(environment.database);
                 let dynamodb = new AWS.DynamoDB();
 
                 var params = {};
                 dynamodb.listTables(params, function (err, data) {
-                    if(err) console.log(err, err.stack);
+                    if (err) console.log(err, err.stack);
                     else {
                         console.log(data);
 
                         var tables = data.TableNames;
-                        if(tables.includes(tableParams.TableName)) console.log(`database ${tableParams.TableName} alredy exist`);
-                        else
-                        {
-                            dynamodb.createTable(tableParams, function(err, data) {
+                        if (tables.includes(tableParams.TableName)) console.log(`database ${tableParams.TableName} alredy exist`);
+                        else {
+                            dynamodb.createTable(tableParams, function (err, data) {
                                 if (err) console.log(err, err.stack);
                                 else console.log(data);
                             });
                         }
-                    }   
+                    }
                 });
 
                 resolver();
@@ -41,7 +40,7 @@ export class Dynamo {
 }
 
 const tableParams = {
-    TableName: "Movies",
+    TableName: environment.database.tablename,
     KeySchema: [
         { AttributeName: "year", KeyType: "HASH" },
         { AttributeName: "title", KeyType: "RANGE" }
