@@ -14,9 +14,24 @@ export class Server {
                     name: 'poc_dynamo',
                     version: '1.0.0'
                 });
-
+               
                 this.application.use(restify.plugins.bodyParser());
                 this.application.use(restify.plugins.queryParser());
+
+                this.application.use(function(req, res, next) {
+                    console.log({
+                        url: req.url,
+                        headers: req.headers,
+                        params: req.params,
+                        body: req.body
+                    });
+
+                    console.log({
+                        statusCode: res.statusCode
+                    });
+
+                    return next();
+                });
 
                 for (let router of routers) {
                     router.applyRoutes(this.application);
