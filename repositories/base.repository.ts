@@ -10,13 +10,58 @@ export abstract class BaseRepository<TEntity> {
         this.docClient = new AWS.DynamoDB.DocumentClient();
     }
 
-    public put(data: TEntity): void {
+    public get(id: String): Promise<TEntity> {
+        return new Promise<TEntity>((resolver, reject) => {
+            var params = {
+                TableName: environment.database.tablename,
+                Key: {
+                    "id": id
+                }
+            };
 
-        let params = {
-            TableName: environment.database.tablename,
-            Item: data
-        };
+            this.docClient.get(params, function (err, data) {
+                if (err) {
+                    console.log(err, err.stack);
+                    reject(err);
+                } else {
+                    let result = data.Item as TEntity;
+                    resolver(result);
+                }
+            })
+        });
+    }
 
-        this.docClient.put(params);
+    public put(entity: TEntity): Promise<TEntity> {
+
+        return new Promise((resolver, reject) => {
+            let params = {
+                TableName: environment.database.tablename,
+                Item: entity
+            };
+
+            this.docClient.put(params, function (err, data) {
+                if (err) reject(err);
+
+                resolver(entity);
+            });
+        });
+    }
+
+    public delete(id: String): Promise<any> {
+
+        return new Promise((resolver, reject) => {
+
+            var params = {
+                TableName: environment.database.tablename,
+                Key: {
+                    "id": id
+                }
+            };
+
+            this.docClient.delete(params, function(err, data) {
+                if(err) reject(err);
+                resolver();
+            })
+        });
     }
 }

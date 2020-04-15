@@ -1,11 +1,11 @@
 import { Server } from './configurations/server';
 import { Dynamo } from './configurations/dynamo';
-import { CostExplorer } from 'aws-sdk';
+import { customerRouter } from './apis/customer.router';
 
 const server = new Server();
 const dynamo = new Dynamo();
 
-server.bootstrap()
+server.bootstrap([customerRouter])
     .then(server => {
         console.log(`Server is listening on: ${server.application.address}`);
     })

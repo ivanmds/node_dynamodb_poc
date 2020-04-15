@@ -5,6 +5,6 @@ export const environment = {
         endpoint: process.env.DYNAMODB_ENDPOINT || "http://localhost:8000",
         accessKeyId: process.env.ACCESS_KEY_ID || "root",
         secretAccessKey: process.env.SECRET_ACCESS_KEY || "secret",
-        tablename: 'PersonData'
+        tablename: 'CustomerData'
      }
 }
