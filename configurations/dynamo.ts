@@ -42,12 +42,10 @@ export class Dynamo {
 const tableParams = {
     TableName: environment.database.tablename,
     KeySchema: [
-        { AttributeName: "year", KeyType: "HASH" },
-        { AttributeName: "title", KeyType: "RANGE" }
+        { AttributeName: "id", KeyType: "HASH" }
     ],
     AttributeDefinitions: [
-        { AttributeName: "year", AttributeType: "N" },
-        { AttributeName: "title", AttributeType: "S" }
+        { AttributeName: "id", AttributeType: "S" }
     ],
     ProvisionedThroughput: {
         ReadCapacityUnits: 10,

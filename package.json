@@ -19,7 +19,8 @@
   "homepage": "https://github.com/ivanmds/node_dynamodb_poc#readme",
   "dependencies": {
     "aws-sdk": "^2.656.0",
-    "restify": "^8.5.1"
+    "restify": "^8.5.1",
+    "uuid": "^7.0.3"
   },
   "devDependencies": {
     "@types/aws-sdk": "^2.7.0",
