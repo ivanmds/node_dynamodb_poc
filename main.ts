@@ -1,9 +1,11 @@
 import { Server } from './configurations/server';
 import { Dynamo } from './configurations/dynamo';
 import { customerRouter } from './apis/customer.router';
+import { ElasticConfig } from './configurations/elastic';
 
 const server = new Server();
 const dynamo = new Dynamo();
+const elastic = new ElasticConfig();
 
 server.bootstrap([customerRouter])
     .then(server => {
@@ -21,6 +23,16 @@ dynamo.bootstrap()
     })
     .catch(error => {
         console.log('Error in start dynamodb');
+        console.error(error);
+        process.exit(1);
+    });
+
+elastic.init()
+    .then(elastic => {
+        console.log('success start elastic');
+    })
+    .catch(error => {
+        console.log('Error elastic');
         console.error(error);
         process.exit(1);
     });
