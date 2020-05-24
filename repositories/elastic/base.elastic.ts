@@ -2,7 +2,7 @@ import elastic from 'elasticsearch';
 import { BaseLog } from '../../models/logs/base.log';
 
 export abstract class BaseElastic<TValue extends BaseLog> {
-    
+
     private _client: elastic.Client = null;
     private _indexName: string = null;
 
@@ -21,7 +21,7 @@ export abstract class BaseElastic<TValue extends BaseLog> {
     }
 
     public put(value: TValue): Promise<any> {
-        
+
         return new Promise<any>((resolver, reject) => {
             let params: elastic.CreateDocumentParams = {
                 index: this._indexName,
@@ -31,7 +31,7 @@ export abstract class BaseElastic<TValue extends BaseLog> {
             };
 
             this._client.create(params, function (err, resp, status) {
-                if(err) {
+                if (err) {
                     console.log(err, err.stack);
                     reject(err);
                 } else {
@@ -44,17 +44,25 @@ export abstract class BaseElastic<TValue extends BaseLog> {
     }
 
     private init() {
-        this._client.indices.create({
+        const indexData = {
             index: this._indexName
-        }).then(() => {
-            console.log(`success elastic ${this._indexName}`);
+        };
 
-            this._client.cluster.health({ index: this._indexName }, (err, res) => {
-                if (err) throw err;
-                console.log("-- Client Health --", res);
+        this._client.indices.exists(indexData)
+            .then((exist) => {
+                if (exist == false) {
+
+                    this._client.indices.create(indexData).then(() => {
+                        console.log(`success elastic ${this._indexName}`);
+
+                        this._client.cluster.health({ index: this._indexName }, (err, res) => {
+                            if (err) throw err;
+                            console.log("-- Client Health --", res);
+                        });
+                    }).catch((err) => {
+                        console.log(err, err.stack);
+                    });
+                }
             });
-        }).catch((err) => {
-            console.log(err, err.stack);
-        });
     }
 }

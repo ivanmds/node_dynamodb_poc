@@ -2,10 +2,12 @@ import { Server } from './configurations/server';
 import { Dynamo } from './configurations/dynamo';
 import { customerRouter } from './apis/customer.router';
 import { ElasticConfig } from './configurations/elastic';
+import { SwaggerConfig } from './configurations/swagger';
 
 const server = new Server();
 const dynamo = new Dynamo();
 const elastic = new ElasticConfig();
+const swagger = new SwaggerConfig();
 
 server.bootstrap([customerRouter])
     .then(server => {
@@ -34,5 +36,16 @@ elastic.init()
     .catch(error => {
         console.log('Error elastic');
         console.error(error);
+        process.exit(1);
+    });
+
+
+swagger.init()
+    .then(() => {
+        console.log('Swagger configured with success');
+    })
+    .catch((err) => {
+        console.log('Error elastic');
+        console.error(err);
         process.exit(1);
     });

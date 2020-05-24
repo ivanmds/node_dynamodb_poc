@@ -7,6 +7,7 @@ export class ElasticConfig {
         return new Promise<any>((resolver, reject) => {
             try {
                 LogsElastic.Create();
+                
                 resolver();
             } catch (err) {
                 reject();
