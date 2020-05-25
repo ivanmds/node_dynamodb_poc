@@ -1,24 +1,24 @@
 import { Router } from '../common/router';
 import * as restify from 'restify';
-import { CustomerRepository } from '../repositories/customer.repository';
 import { Customer } from '../models/customer.model';
 import { NotFoundError } from 'restify-errors';
+import { CustomerService } from '../services/customer.services';
 
 
 class CustomerRouter extends Router {
 
-    private repository: CustomerRepository;
+    private _service: CustomerService;
 
     constructor() {
         super();
 
-        this.repository = new CustomerRepository();
+        this._service = new CustomerService();
     }
 
     applyRoutes(application: restify.Server) {
 
         application.get('/customers/:id', (req, res, next) => {
-            this.repository.get(req.params.id).then(customer => {
+            this._service.get(req.params.id).then(customer => {
                 
                 if (customer) {
                     res.send(customer);
@@ -37,14 +37,14 @@ class CustomerRouter extends Router {
                 req.body.motherName,
             );
 
-            this.repository.put(customer).then(customerResult => {
+            this._service.put(customer).then(customerResult => {
                 res.send(customerResult);
                 return next();
             }).catch(next);
         });
 
         application.del('/customers/:id', (req, res, next) => {
-            this.repository.delete(req.params.id).then(() => {
+            this._service.delete(req.params.id).then(() => {
                 res.send(200);
                 return next();
             }).catch(next);

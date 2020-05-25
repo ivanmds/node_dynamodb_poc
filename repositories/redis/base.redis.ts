@@ -31,12 +31,26 @@ export abstract class BaseRedis<TValue extends BaseModel> {
         return new Promise<TValue>((resolve, reject) => {
             const key = `${this.baseKey}:${id}`;
             this._client.get(key, function (err, jsonValue) {
-                if(err) {
+                if (err) {
                     console.log(err);
                     reject(err);
                 } else {
                     var objValue = JSON.parse(jsonValue);
                     resolve(objValue);
+                }
+            });
+        });
+    }
+
+    public delete(id: string): Promise<any> {
+        return new Promise<any>((resolver, reject) => { 
+            const key = `${this.baseKey}:${id}`;
+            this._client.del(key, function(err, reply) {
+                if(err) {
+                    console.log(err);
+                    reject(err);
+                } else {
+                    resolver();
                 }
             });
         });
