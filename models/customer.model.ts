@@ -1,6 +1,7 @@
-export class Customer {
+import { BaseModel } from "./base.model";
 
-    public id: String;
+export class Customer extends BaseModel {
+
     public name: String;
     public alias: String;
     public document: String;
@@ -11,11 +12,11 @@ export class Customer {
         alias: String,
         document: String,
         motherName: String
-        ) { 
-            this.name = name;
-            this.alias = alias;
-            this.document = document;
-            this.motherName = motherName;
-            this.id = document;
-        }    
+    ) {
+        super(document);
+        this.name = name;
+        this.alias = alias;
+        this.document = document;
+        this.motherName = motherName;
+    }
 }

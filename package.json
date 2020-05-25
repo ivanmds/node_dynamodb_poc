@@ -21,6 +21,7 @@
     "aws-sdk": "^2.656.0",
     "bunyan": "^1.8.12",
     "elasticsearch": "^16.7.1",
+    "redis": "^3.0.2",
     "restify": "^8.5.1",
     "restify-errors": "^8.0.2",
     "swagger-ui-restify": "^3.0.8"
@@ -29,6 +30,7 @@
     "@types/aws-sdk": "^2.7.0",
     "@types/bunyan": "^1.8.6",
     "@types/elasticsearch": "^5.0.36",
+    "@types/redis": "^2.8.21",
     "@types/restify": "^8.4.2",
     "@types/restify-errors": "^4.3.3",
     "nodemon": "^2.0.3"
