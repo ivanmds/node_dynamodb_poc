@@ -1,4 +1,5 @@
 import { Server } from "./server";
+import swaggerUi from 'swagger-ui-restify';
 
 export class SwaggerConfig {
 
@@ -7,7 +8,6 @@ export class SwaggerConfig {
 
             try {
                 const app = Server.GetApplication();
-                const swaggerUi = require('swagger-ui-restify');
                 const swaggerDocument = require('../configurations/swagger.json');
 
                 app.get('/api-docs', swaggerUi.setup(swaggerDocument));

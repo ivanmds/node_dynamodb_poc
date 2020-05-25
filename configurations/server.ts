@@ -61,6 +61,11 @@ export class Server {
                     return next();
                 });
 
+                const swaggerUi = require('swagger-ui-restify');
+                const swaggerDocument = require('./swagger.json');
+                
+                this.application.get('/api-docs', swaggerUi.setup(swaggerDocument));
+
                 this.application.listen(environment.server.port, () => {
                     resolve(this.application);
                 });

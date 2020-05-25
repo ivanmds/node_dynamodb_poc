@@ -38,14 +38,3 @@ elastic.init()
         console.error(error);
         process.exit(1);
     });
-
-
-swagger.init()
-    .then(() => {
-        console.log('Swagger configured with success');
-    })
-    .catch((err) => {
-        console.log('Error elastic');
-        console.error(err);
-        process.exit(1);
-    });
